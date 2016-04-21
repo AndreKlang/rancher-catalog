@@ -16,7 +16,7 @@ web:
   hostname: ${web_hostname}
   tty: true
   links:
-    - db_mysql:mysql
+    - mysql:mysql
     - redis:redis
   volumes-from:
     - data
@@ -42,12 +42,12 @@ phpmyadmin:
     MYSQL_ROOT_PASSWORD: root
     MYSQL_HOST: mysql
   links:
-    - db_mysql:mysql
+    - mysql:mysql
   expose:
     - "80"
 
 # MySql
-db_mysql:
+mysql:
   image: mariadb
   volumes-from:
     - data

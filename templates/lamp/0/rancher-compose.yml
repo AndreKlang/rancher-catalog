@@ -51,6 +51,6 @@ phpmyadmin:
   scale: 1
   retain_ip: true
 
-db_mysql:
+mysql:
   scale: 1
   retain_ip: true
