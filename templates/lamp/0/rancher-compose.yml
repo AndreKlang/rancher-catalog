@@ -1,0 +1,56 @@
+.catalog:
+  name: Klangs Lamp Stack
+  version: 5.6
+  description: |
+    Linux Apache MySql Php[-fpm]
+  minimum_rancher_version: v0.56.0
+  maintainer: "AndreKlang"
+  uuid: lamp-0
+  questions:
+    - variable: "web_hostname"
+      description: "Web hostname"
+      label: "Hostname:"
+      required: true
+      default: "myproject.andreklang.se"
+      type: "string"
+
+    - variable: "sql_db"
+      description: "Database name"
+      label: "Mysql database:"
+      required: true
+      default: "project_db"
+      type: "string"
+
+    - variable: "sql_user"
+      description: "Database username"
+      label: "Mysql username:"
+      required: true
+      default: "project_user"
+      type: "string"
+
+    - variable: "sql_pass"
+      description: "Database pass"
+      label: "Mysql pass:"
+      required: true
+      default: "SomethingSecretThatIsHardToGuess"
+      type: "string"
+
+data:
+  scale: 1
+  retain_ip: true
+
+web:
+  scale: 1
+  retain_ip: true
+
+redis:
+  scale: 1
+  retain_ip: true
+
+phpmyadmin:
+  scale: 1
+  retain_ip: true
+
+db_mysql:
+  scale: 1
+  retain_ip: true
