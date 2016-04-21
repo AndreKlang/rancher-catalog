@@ -26,8 +26,8 @@ web:
     MYSQL_DATABASE: ${sql_db}
     MYSQL_USER: ${sql_user}
     MYSQL_PASSWORD: ${sql_pass}
-  expose:
-    - "80"
+#  expose:
+#    - "80"
 
 # redis
 redis:
@@ -43,16 +43,16 @@ phpmyadmin:
     MYSQL_HOST: mysql
   links:
     - mysql:mysql
-  expose:
-    - "80"
+#  expose:
+#    - "80"
 
 # MySql
 mysql:
   image: mariadb
   volumes-from:
     - data
-  expose:
-    - "3306"
+#  expose:
+#    - "3306"
   environment:
     MYSQL_ROOT_PASSWORD: "root"
     MYSQL_DATABASE: project
