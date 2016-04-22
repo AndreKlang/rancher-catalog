@@ -17,11 +17,7 @@ web:
   domainname: ${web_hostname}
   tty: true
   labels:
-    io.rancher.sidekicks:
-      - data
-      - redis
-      - phpmyadmin
-      - mysql
+    io.rancher.sidekicks: data, redis, phpmyadmin, mysql
   links:
     - mysql:mysql
     - redis:redis
