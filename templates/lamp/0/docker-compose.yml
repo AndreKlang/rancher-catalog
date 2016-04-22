@@ -17,7 +17,8 @@ web:
   domainname: ${web_hostname}
   tty: true
   labels:
-    io.rancher.sidekicks: data, redis, phpmyadmin, mysql
+    se.andreklang.discover.domainname: ${web_hostname}
+#    io.rancher.sidekicks: data, redis, phpmyadmin, mysql
   links:
     - mysql:mysql
     - redis:redis
