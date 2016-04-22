@@ -14,7 +14,14 @@ data:
 web:
   image: php:5.6-apache
   hostname: ${web_hostname}
+  domainname: ${web_hostname}
   tty: true
+  labels:
+    io.rancher.sidekicks:
+      - data
+      - redis
+      - phpmyadmin
+      - mysql
   links:
     - mysql:mysql
     - redis:redis
