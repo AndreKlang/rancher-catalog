@@ -1,14 +1,4 @@
 # Php & Apache
-
-web-data:
-  image: ubuntu
-  labels:
-    io.rancher.container.start_once: 'true'
-  entrypoint:
-    - /bin/true
-  volumes:
-    - /home/docker/${STACK_NAME}/html:/var/www/html
-
 web:
   image: php:5.6-apache
   hostname: ${web_hostname}/
@@ -16,12 +6,11 @@ web:
   tty: true
   labels:
     se.andreklang.discover.domainname: ${web_hostname}
-    io.rancher.sidekicks: web-data
   links:
     - mysql:mysql
     - redis:redis
-  volumes_from:
-    - web-data
+  volumes:
+    - /home/docker/${STACK_NAME}/html:/var/www/html
   depends_on:
     - redis
     - mysql
@@ -32,20 +21,20 @@ web:
     MYSQL_USER: ${sql_user}
     MYSQL_PASSWORD: ${sql_pass}
 
-# redis
-redis-data:
-  image: ubuntu
-  labels:
-    io.rancher.container.start_once: 'true'
-  entrypoint:
-    - /bin/true
-  volumes:
-    - /home/docker/${STACK_NAME}/redis:/data
+web-balance:
+  ports:
+    - 8001:80
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+    - web:web
+  stdin_open: true
 
+# redis
 redis:
   image: redis
-  volumes_from:
-    - redis-data
+  volumes:
+    - /home/docker/${STACK_NAME}/redis:/data
   labels:
     io.rancher.sidekicks: redis-data
 
@@ -61,19 +50,10 @@ phpmyadmin:
     - mysql
 
 # MySql
-mysql-data:
-  image: ubuntu
-  labels:
-    io.rancher.container.start_once: 'true'
-  entrypoint:
-    - /bin/true
-  volumes:
-    - /home/docker/${STACK_NAME}/mysql:/var/lib/mysql
-
 mysql:
   image: mariadb
-  volumes_from:
-    - mysql-data
+  volumes:
+    - /home/docker/${STACK_NAME}/mysql:/var/lib/mysql
   labels:
     io.rancher.sidekicks: mysql-data
   environment:

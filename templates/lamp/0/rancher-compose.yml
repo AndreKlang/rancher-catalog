@@ -43,12 +43,8 @@
       default: "SomethingSecretThatIsHardToGuess"
       type: "string"
 
-data:
-  scale: 1
-  retain_ip: true
-
 web:
-  scale: 1
+  scale: 3
   retain_ip: true
 
 redis:
@@ -62,3 +58,14 @@ phpmyadmin:
 mysql:
   scale: 1
   retain_ip: true
+
+web-balance:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000
