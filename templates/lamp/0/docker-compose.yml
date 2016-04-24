@@ -42,7 +42,8 @@ redis:
     - data
   depends_on:
     - data
-  io.rancher.sidekicks: data
+  labels:
+    io.rancher.sidekicks: data
 
 # phpMyAdmin
 phpmyadmin:
@@ -62,7 +63,8 @@ mysql:
     - data
   depends_on:
     - data
-  io.rancher.sidekicks: data
+  labels:
+    io.rancher.sidekicks: data
   environment:
     MYSQL_ROOT_PASSWORD: "root"
     MYSQL_DATABASE: project
