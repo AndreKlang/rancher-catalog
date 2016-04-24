@@ -7,6 +7,14 @@
   maintainer: "AndreKlang"
   uuid: lamp-0
   questions:
+
+    - variable: "STACK_NAME"
+      description: "Has to be exactly as the stack's name (see issue #3393)"
+      label: "Stack Name:"
+      required: true
+      default: "myproject.andreklang.se"
+      type: "string"
+
     - variable: "web_hostname"
       description: "Web hostname"
       label: "Hostname:"

@@ -7,13 +7,13 @@ data:
   entrypoint:
     - /bin/true
   volumes:
-    - /var/www/html
-    - /var/lib/mysql
-    - /data # used by redis
+    - /home/docker/${STACK_NAME}/html:/var/www/html
+    - /home/docker/${STACK_NAME}/mysql:/var/lib/mysql
+    - /home/docker/${STACK_NAME}/redis:/data # used by redis
 
 web:
   image: php:5.6-apache
-  hostname: ${web_hostname}
+  hostname: ${web_hostname}/
   domainname: ${web_hostname}
   tty: true
   labels:
