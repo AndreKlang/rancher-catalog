@@ -1,6 +1,6 @@
 # Php & Apache
 
-data:
+web-data:
   image: ubuntu
   labels:
     io.rancher.container.start_once: 'true'
@@ -8,8 +8,6 @@ data:
     - /bin/true
   volumes:
     - /home/docker/${STACK_NAME}/html:/var/www/html
-    - /home/docker/${STACK_NAME}/mysql:/var/lib/mysql
-    - /home/docker/${STACK_NAME}/redis:/data # used by redis
 
 web:
   image: php:5.6-apache
@@ -18,14 +16,13 @@ web:
   tty: true
   labels:
     se.andreklang.discover.domainname: ${web_hostname}
-    io.rancher.sidekicks: data
+    io.rancher.sidekicks: web-data
   links:
     - mysql:mysql
     - redis:redis
   volumes_from:
-    - data
+    - web-data
   depends_on:
-    - data
     - redis
     - mysql
   environment:
@@ -36,14 +33,21 @@ web:
     MYSQL_PASSWORD: ${sql_pass}
 
 # redis
+redis-data:
+  image: ubuntu
+  labels:
+    io.rancher.container.start_once: 'true'
+  entrypoint:
+    - /bin/true
+  volumes:
+    - /home/docker/${STACK_NAME}/redis:/data
+
 redis:
   image: redis
   volumes_from:
-    - data
-  depends_on:
-    - data
+    - redis-data
   labels:
-    io.rancher.sidekicks: data
+    io.rancher.sidekicks: redis-data
 
 # phpMyAdmin
 phpmyadmin:
@@ -57,14 +61,21 @@ phpmyadmin:
     - mysql
 
 # MySql
+mysql-data:
+  image: ubuntu
+  labels:
+    io.rancher.container.start_once: 'true'
+  entrypoint:
+    - /bin/true
+  volumes:
+    - /home/docker/${STACK_NAME}/mysql:/var/lib/mysql
+
 mysql:
   image: mariadb
   volumes_from:
-    - data
-  depends_on:
-    - data
+    - mysql-data
   labels:
-    io.rancher.sidekicks: data
+    io.rancher.sidekicks: mysql-data
   environment:
     MYSQL_ROOT_PASSWORD: "root"
     MYSQL_DATABASE: project
