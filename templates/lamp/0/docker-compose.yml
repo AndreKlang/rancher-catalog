@@ -23,7 +23,7 @@ web:
 
 web-balance:
   ports:
-    - 8001:80
+    - 80
   tty: true
   image: rancher/load-balancer-service
   links:
