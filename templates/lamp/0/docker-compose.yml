@@ -35,8 +35,6 @@ redis:
   image: redis
   volumes:
     - /home/docker/${STACK_NAME}/redis:/data
-  labels:
-    io.rancher.sidekicks: redis-data
 
 # phpMyAdmin
 phpmyadmin:
@@ -54,8 +52,6 @@ mysql:
   image: mariadb
   volumes:
     - /home/docker/${STACK_NAME}/mysql:/var/lib/mysql
-  labels:
-    io.rancher.sidekicks: mysql-data
   environment:
     MYSQL_ROOT_PASSWORD: "root"
     MYSQL_DATABASE: project
