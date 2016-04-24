@@ -12,7 +12,7 @@
       description: "Has to be exactly as the stack's name (see issue #3393)"
       label: "Stack Name:"
       required: true
-      default: "myproject.andreklang.se"
+      default: "lamp"
       type: "string"
 
     - variable: "web_hostname"
