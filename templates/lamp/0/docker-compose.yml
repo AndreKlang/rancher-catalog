@@ -22,7 +22,7 @@ web:
   links:
     - mysql:mysql
     - redis:redis
-  volumes-from:
+  volumes_from:
     - data
   environment:
     REDIS_HOST: redis
@@ -34,7 +34,7 @@ web:
 # redis
 redis:
   image: redis
-  volumes-from:
+  volumes_from:
     - data
 
 # phpMyAdmin
@@ -49,7 +49,7 @@ phpmyadmin:
 # MySql
 mysql:
   image: mariadb
-  volumes-from:
+  volumes_from:
     - data
   environment:
     MYSQL_ROOT_PASSWORD: "root"
